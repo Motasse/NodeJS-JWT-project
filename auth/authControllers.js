@@ -27,7 +27,7 @@ exports.login = async (req, res) =>{
     const password = req.body.password;
 
     const user = await userModel.getUser(username);
-    console.log('user', user[0].password);
+    console.log('user', user[0].username);
     if(!user) return res.status(401).send('Username not found');
     
     const checkPassword = bcrypt.compareSync(password, user[0].password);
@@ -37,8 +37,8 @@ exports.login = async (req, res) =>{
     console.log('tokLife', process.env.ACCESS_TOKEN_LIFE);
     const accessToken = await authentication.generateToken(
         {username: user[0].username},
-        process.env.ACCESS_TOKEN_LIFE,
-        process.env.SECRET_KEY
+        process.env.SECRET_KEY,
+        process.env.ACCESS_TOKEN_LIFE
     );
     if (!accessToken) return res.status(401).send('Error creating access token');
 

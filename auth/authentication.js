@@ -8,8 +8,8 @@ exports.generateToken = async(payload, secretKey, tokenLife) =>{
     try {
         return await sign(
             {
-                algorithm: 'HS256',
-                expiresIn: tokenLife,
+                "algorithm": "HS256",
+                "expiresIn": tokenLife,
             },
             {
                 payload,
